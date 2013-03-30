@@ -1,7 +1,7 @@
 <resources>
 
     <string name="extension_name">Owner Information</string>
-    <string name="application_name">Dashclock Owner Information Extension</string>
+    <string name="application_name">Dashclock User Info Extension</string>
     <string name="extension_info">Displays information about you using the details of the ""Me"" contact.</string>
 
 </resources>
