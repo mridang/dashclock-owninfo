@@ -46,23 +46,32 @@ public class OwninfoWidget extends DashClockExtension {
 							ContactsContract.Profile.CONTENT_URI,
 							ContactsContract.Contacts.Data.CONTENT_DIRECTORY),
 							new String[] { 
-									ContactsContract.CommonDataKinds.Email.ADDRESS,
-									ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-									ContactsContract.Profile.DISPLAY_NAME, },
-							ContactsContract.Contacts.Data.MIMETYPE + " = ?",
-							new String[] { 
-								ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE },
-							ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+						ContactsContract.CommonDataKinds.Email.ADDRESS,
+						ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+						ContactsContract.Profile.DISPLAY_NAME, },
+						ContactsContract.Contacts.Data.MIMETYPE + " = ?",
+						new String[] { 
+						ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE },
+						ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
 
-			if (curOwner.moveToFirst()) {
+			while (curOwner.moveToNext()) {
 
-				edtInformation.status(curOwner.getString(curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
-				edtInformation.expandedBody(curOwner.getString(curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
-				edtInformation.visible(true);
+				if (!curOwner.getString(curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)).isEmpty() && edtInformation.expandedTitle() == null) {
+
+					edtInformation.expandedTitle(curOwner.getString(curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
+
+				}
+
+				if (!curOwner.getString(curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)).isEmpty() && edtInformation.expandedBody() == null) {
+
+					edtInformation.expandedBody(curOwner.getString(curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
+
+				}
 
 			}
 
 			curOwner.close();
+			edtInformation.visible(true);
 
 		} catch (Exception e) {
 			Log.e("OwninfoWidget", "Encountered an error", e);
