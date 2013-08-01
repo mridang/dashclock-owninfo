@@ -1,5 +1,6 @@
 package com.mridang.owninfo;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -54,24 +55,46 @@ public class OwninfoWidget extends DashClockExtension {
 						ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE },
 						ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
 
-			while (curOwner.moveToNext()) {
-
-				if (!curOwner.getString(curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)).isEmpty() && edtInformation.expandedTitle() == null) {
-
-					edtInformation.expandedTitle(curOwner.getString(curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
-
+			if (curOwner.getCount() > 0) {
+			
+				while (curOwner.moveToNext()) {
+	
+					if (!curOwner
+							.getString(
+									curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME))
+							.isEmpty()
+							&& edtInformation.expandedTitle() == null) {
+	
+						edtInformation
+								.expandedTitle(curOwner.getString(curOwner
+										.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
+	
+					}
+	
+					edtInformation.clickIntent(new Intent(Intent.ACTION_VIEW).setData(ContactsContract.Profile.CONTENT_URI));
+	
+					if (!curOwner
+							.getString(
+									curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+							.isEmpty()
+							&& edtInformation.expandedBody() == null) {
+	
+						edtInformation
+								.expandedBody(curOwner.getString(curOwner
+										.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
+	
+					}
+	
 				}
-
-				if (!curOwner.getString(curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)).isEmpty() && edtInformation.expandedBody() == null) {
-
-					edtInformation.expandedBody(curOwner.getString(curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
-
-				}
-
+				
+				edtInformation.visible(true);
+				
+			} else {
+				Log.w("OwninfoWidget", "unable to find any profile contacts");
+				throw new Exception("No profile records found");
 			}
 
 			curOwner.close();
-			edtInformation.visible(true);
 
 		} catch (Exception e) {
 			Log.e("OwninfoWidget", "Encountered an error", e);
