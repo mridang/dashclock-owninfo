@@ -32,11 +32,11 @@ public class OwninfoWidget extends DashClockExtension {
 	 * (int)
 	 */
 	@Override
-	protected void onUpdateData(int arg0) {
+	protected void onUpdateData(int intReason) {
 
 		Log.d("OwninfoWidget", "Fetching phone owner information");
 		ExtensionData edtInformation = new ExtensionData();
-		edtInformation.visible(false);
+		setUpdateWhenScreenOn(false);
 
 		try {
 
@@ -56,39 +56,39 @@ public class OwninfoWidget extends DashClockExtension {
 						ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
 
 			if (curOwner.getCount() > 0) {
-			
+
 				while (curOwner.moveToNext()) {
-	
+
 					if (!curOwner
 							.getString(
 									curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME))
-							.isEmpty()
-							&& edtInformation.expandedTitle() == null) {
-	
+									.isEmpty()
+									&& edtInformation.expandedTitle() == null) {
+
 						edtInformation
-								.expandedTitle(curOwner.getString(curOwner
-										.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
-	
+						.expandedTitle(curOwner.getString(curOwner
+								.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
+
 					}
-	
+
 					edtInformation.clickIntent(new Intent(Intent.ACTION_VIEW).setData(ContactsContract.Profile.CONTENT_URI));
-	
+
 					if (!curOwner
 							.getString(
 									curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
-							.isEmpty()
-							&& edtInformation.expandedBody() == null) {
-	
+									.isEmpty()
+									&& edtInformation.expandedBody() == null) {
+
 						edtInformation
-								.expandedBody(curOwner.getString(curOwner
-										.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
-	
+						.expandedBody(curOwner.getString(curOwner
+								.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
+
 					}
-	
+
 				}
-				
+
 				edtInformation.visible(true);
-				
+
 			} else {
 				Log.w("OwninfoWidget", "unable to find any profile contacts");
 				throw new Exception("No profile records found");
@@ -97,6 +97,7 @@ public class OwninfoWidget extends DashClockExtension {
 			curOwner.close();
 
 		} catch (Exception e) {
+			edtInformation.visible(false);
 			Log.e("OwninfoWidget", "Encountered an error", e);
 			BugSenseHandler.sendException(e);
 		}
