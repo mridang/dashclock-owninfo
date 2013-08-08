@@ -1,7 +1,11 @@
 <resources>
 
-    <string name="extension_name">Owner Information</string>
-    <string name="application_name">Dashclock User Info Extension</string>
-    <string name="extension_info">Displays information about you using the details of the ""Me"" contact.</string>
+    <string name="heading">Heading</string>
+    <string name="extension_name">Ownership</string>
+    <string name="summary">Enter any custom text to be displayed</string>
+    <string name="preferences_title">Ownership Extension Settings</string>
+    <string name="application_name">Dashclock Ownership Extension</string>
+    <string name="extension_info">Displays information about the owner\'s name and email address.</string>
+    <string name="message">Message</string>
 
 </resources>

@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.mridang.netbank" >
+
+    <EditTextPreference
+        android:key="heading"
+        android:summary="@string/summary"
+        android:title="@string/heading" />
+    <EditTextPreference
+        android:key="message"
+        android:summary="@string/summary"
+        android:title="@string/message" />
+
+</PreferenceScreen>

@@ -1,4 +1,4 @@
 dashclock-owninfo
 =================
 
-A Dashclock plugin that displays information about the phone's owner.
+A Dashclock plugin that displays information about the owner\'s name and email address.

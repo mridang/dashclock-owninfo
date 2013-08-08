@@ -3,6 +3,7 @@ package com.mridang.owninfo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -55,44 +56,59 @@ public class OwninfoWidget extends DashClockExtension {
 						ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE },
 						ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
 
-			if (curOwner.getCount() > 0) {
+			if (!PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext())
+					.getString("heading", "").isEmpty()) {
 
-				while (curOwner.moveToNext()) {
+				edtInformation.expandedTitle(PreferenceManager
+						.getDefaultSharedPreferences(getApplicationContext())
+						.getString("heading", ""));
 
-					if (!curOwner
-							.getString(
-									curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME))
-									.isEmpty()
-									&& edtInformation.expandedTitle() == null) {
+			}
 
-						edtInformation
-						.expandedTitle(curOwner.getString(curOwner
-								.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
+			if (!PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext())
+					.getString("message", "").isEmpty()) {
 
-					}
+				edtInformation.expandedBody(PreferenceManager
+						.getDefaultSharedPreferences(
+								getApplicationContext()).getString(
+										"message", ""));
 
-					edtInformation.clickIntent(new Intent(Intent.ACTION_VIEW).setData(ContactsContract.Profile.CONTENT_URI));
+			}
 
-					if (!curOwner
-							.getString(
-									curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
-									.isEmpty()
-									&& edtInformation.expandedBody() == null) {
 
-						edtInformation
-						.expandedBody(curOwner.getString(curOwner
-								.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
+			while (curOwner.moveToNext()) {
 
-					}
+				if (!curOwner
+						.getString(
+								curOwner.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME))
+								.isEmpty()
+								&& edtInformation.expandedTitle() == null) {
+
+					edtInformation
+					.expandedTitle(curOwner.getString(curOwner
+							.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
 
 				}
 
-				edtInformation.visible(true);
+				edtInformation.clickIntent(new Intent(Intent.ACTION_VIEW).setData(ContactsContract.Profile.CONTENT_URI));
 
-			} else {
-				Log.w("OwninfoWidget", "unable to find any profile contacts");
-				throw new Exception("No profile records found");
+				if (!curOwner
+						.getString(
+								curOwner.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+								.isEmpty()
+								&& edtInformation.expandedBody() == null) {
+
+					edtInformation
+					.expandedBody(curOwner.getString(curOwner
+							.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)));
+
+				}
+
 			}
+
+			edtInformation.visible(true);
 
 			curOwner.close();
 
