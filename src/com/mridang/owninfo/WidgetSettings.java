@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 /*
  * This class is the activity which contains the preferences
  */
-@SuppressWarnings("deprecation")
 public class WidgetSettings extends PreferenceActivity {
 
 	/* The instance of the pdgProgress dialog */
@@ -28,7 +27,7 @@ public class WidgetSettings extends PreferenceActivity {
 	}
 
 	/*
-	 * A preference value change listener that updates the preference's summary 
+	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
 	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
@@ -44,17 +43,16 @@ public class WidgetSettings extends PreferenceActivity {
 	};
 
 	/*
-	 * Binds a preference's summary to its value. More specifically, when the 
-	 * preference's value is changed, its summary is updated to reflect the value.
+	 * Binds a preference's summary to its value. More specifically, when the
+	 * preference's value is changed, its summary is updated to reflect the
+	 * value.
 	 */
 	private static void bindPreferenceSummaryToValue(Preference prePreference) {
 
 		prePreference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
-		sBindPreferenceSummaryToValueListener.onPreferenceChange(prePreference,
-				PreferenceManager
-				.getDefaultSharedPreferences(prePreference.getContext())
-				.getString(prePreference.getKey(), ""));
+		sBindPreferenceSummaryToValueListener.onPreferenceChange(prePreference, PreferenceManager
+				.getDefaultSharedPreferences(prePreference.getContext()).getString(prePreference.getKey(), ""));
 
 	}
 
@@ -68,7 +66,6 @@ public class WidgetSettings extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		bindPreferenceSummaryToValue(findPreference("heading"));
 		bindPreferenceSummaryToValue(findPreference("message"));
-
 
 	}
 
