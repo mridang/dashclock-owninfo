@@ -1,6 +1,5 @@
 package com.mridang.owninfo;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -11,13 +10,11 @@ import android.preference.PreferenceManager;
  */
 public class WidgetSettings extends PreferenceActivity {
 
-	/* The instance of the pdgProgress dialog */
-	ProgressDialog pdgProgress;
-
-	/*
-	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
-	 */
-	@Override
+    /*
+     * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
+     */
+	@SuppressWarnings("ConstantConditions")
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
@@ -30,7 +27,7 @@ public class WidgetSettings extends PreferenceActivity {
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+	private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
 
 		@Override
 		public boolean onPreferenceChange(Preference prePreference, Object objValue) {

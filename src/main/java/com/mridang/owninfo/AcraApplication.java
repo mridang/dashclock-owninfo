@@ -7,6 +7,7 @@ import org.acra.sender.HttpSender;
 import android.app.Application;
 import android.content.Context;
 
+@SuppressWarnings("ALL")
 @ReportsCrashes(
 	    formUri = "https://mridang.cloudant.com/acra-dashclock/_design/acra-storage/_update/report",
 	    reportType = HttpSender.Type.JSON,
