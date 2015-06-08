@@ -1,11 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mridang.owninfo"
-    android:versionCode="11"
-    android:versionName="1.1">
+<manifest package="com.mridang.owninfo"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="12"
+          android:versionName="1.2">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -18,18 +18,18 @@
             android:label="@string/extension_name"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
-                <action android:name="com.google.android.apps.dashclock.Extension" />
+                <action android:name="com.google.android.apps.dashclock.Extension"/>
             </intent-filter>
 
             <meta-data
                 android:name="protocolVersion"
-                android:value="1" />
+                android:value="1"/>
             <meta-data
                 android:name="description"
-                android:value="@string/extension_info" />
+                android:value="@string/extension_info"/>
             <meta-data
                 android:name="settingsActivity"
-                android:value=".WidgetSettings" />
+                android:value=".WidgetSettings"/>
         </service>
 
         <activity
